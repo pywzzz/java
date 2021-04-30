@@ -46,45 +46,45 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         hero = new Hero(300, 500); // 初始化自己的坦克
 
         switch (key) {
-        case "1": // 重新开始游戏
-            for (int i = 0; i < EnemyTankSize; i++) { // 用for循环来初始化敌人的坦克
-                EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
+            case "1": // 重新开始游戏
+                for (int i = 0; i < EnemyTankSize; i++) { // 用for循环来初始化敌人的坦克
+                    EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
 
-                // 下面将enemyTanks设置给enemyTank，从而才能达到避免碰撞的效果
-                enemyTank.setEnemyTanks(enemyTanks);
+                    // 下面将enemyTanks设置给enemyTank，从而才能达到避免碰撞的效果
+                    enemyTank.setEnemyTanks(enemyTanks);
 
-                enemyTank.setDirect(2);
-                new Thread(enemyTank).start();// 启动敌人坦克的线程，让它们动起来
-                Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect()); // 给敌人坦克加上一颗子弹
-                enemyTank.shots.add(shot);// 将这些子弹加入到enemyTank中的Vector成员中
-                new Thread(shot).start(); // 启动shot对象
+                    enemyTank.setDirect(2);
+                    new Thread(enemyTank).start();// 启动敌人坦克的线程，让它们动起来
+                    Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect()); // 给敌人坦克加上一颗子弹
+                    enemyTank.shots.add(shot);// 将这些子弹加入到enemyTank中的Vector成员中
+                    new Thread(shot).start(); // 启动shot对象
 
-                enemyTanks.add(enemyTank);
-            }
-            break;
+                    enemyTanks.add(enemyTank);
+                }
+                break;
 
-        case "2": // 继续上局游戏
-            for (int i = 0; i < nodes.size(); i++) { // 用for循环来初始化敌人的坦克
+            case "2": // 继续上局游戏
+                for (int i = 0; i < nodes.size(); i++) { // 用for循环来初始化敌人的坦克
 
-                Node node = nodes.get(i);
+                    Node node = nodes.get(i);
 
-                EnemyTank enemyTank = new EnemyTank(node.getX(), node.getY());
+                    EnemyTank enemyTank = new EnemyTank(node.getX(), node.getY());
 
-                // 下面将enemyTanks设置给enemyTank，从而才能达到避免碰撞的效果
-                enemyTank.setEnemyTanks(enemyTanks);
+                    // 下面将enemyTanks设置给enemyTank，从而才能达到避免碰撞的效果
+                    enemyTank.setEnemyTanks(enemyTanks);
 
-                enemyTank.setDirect(node.getDirect());
-                new Thread(enemyTank).start();// 启动敌人坦克的线程，让它们动起来
-                Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect()); // 给敌人坦克加上一颗子弹
-                enemyTank.shots.add(shot);// 将这些子弹加入到enemyTank中的Vector成员中
-                new Thread(shot).start(); // 启动shot对象
+                    enemyTank.setDirect(node.getDirect());
+                    new Thread(enemyTank).start();// 启动敌人坦克的线程，让它们动起来
+                    Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect()); // 给敌人坦克加上一颗子弹
+                    enemyTank.shots.add(shot);// 将这些子弹加入到enemyTank中的Vector成员中
+                    new Thread(shot).start(); // 启动shot对象
 
-                enemyTanks.add(enemyTank);
-            }
-            break;
+                    enemyTanks.add(enemyTank);
+                }
+                break;
 
-        default:
-            System.out.println("你的输入有误。。。");
+            default:
+                System.out.println("你的输入有误。。。");
         }
 
         hero.setSpeed(10);
@@ -170,45 +170,45 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     public void drawTank(int x, int y, Graphics g, int direct, int type) { // 弄一个专门画坦克的方法
         switch (type) {
 
-        case 0: // 0代表敌人的坦克
-            g.setColor(Color.cyan);
-            break;
+            case 0: // 0代表敌人的坦克
+                g.setColor(Color.cyan);
+                break;
 
-        case 1: // 1代表自己的坦克
-            g.setColor(Color.yellow);
-            break;
+            case 1: // 1代表自己的坦克
+                g.setColor(Color.yellow);
+                break;
 
         }
 
         switch (direct) {
-        case 0: // 方向向上
-            g.fill3DRect(x, y, 10, 60, false); // 画坦克左履带
-            g.fill3DRect(x + 30, y, 10, 60, false); // 画坦克右履带
-            g.fill3DRect(x + 10, y + 10, 20, 40, false); // 画坦克身
-            g.fillOval(x + 10, y + 20, 20, 20); // 画出坦克盖
-            g.drawLine(x + 20, y + 30, x + 20, y); // 画出炮管
-            break;
-        case 1: // 方向向右
-            g.fill3DRect(x, y, 60, 10, false); // 画坦克左履带
-            g.fill3DRect(x, y + 30, 60, 10, false); // 画坦克右履带
-            g.fill3DRect(x + 10, y + 10, 40, 20, false); // 画坦克身
-            g.fillOval(x + 20, y + 10, 20, 20); // 画出坦克盖
-            g.drawLine(x + 30, y + 20, x + 60, y + 20); // 画出炮管
-            break;
-        case 2: // 方向向下
-            g.fill3DRect(x, y, 10, 60, false); // 画坦克左履带
-            g.fill3DRect(x + 30, y, 10, 60, false); // 画坦克右履带
-            g.fill3DRect(x + 10, y + 10, 20, 40, false); // 画坦克身
-            g.fillOval(x + 10, y + 20, 20, 20); // 画出坦克盖
-            g.drawLine(x + 20, y + 30, x + 20, y + 60); // 画出炮管
-            break;
-        case 3: // 方向向左
-            g.fill3DRect(x, y, 60, 10, false); // 画坦克左履带
-            g.fill3DRect(x, y + 30, 60, 10, false); // 画坦克右履带
-            g.fill3DRect(x + 10, y + 10, 40, 20, false); // 画坦克身
-            g.fillOval(x + 20, y + 10, 20, 20); // 画出坦克盖
-            g.drawLine(x + 30, y + 20, x, y + 20); // 画出炮管
-            break;
+            case 0: // 方向向上
+                g.fill3DRect(x, y, 10, 60, false); // 画坦克左履带
+                g.fill3DRect(x + 30, y, 10, 60, false); // 画坦克右履带
+                g.fill3DRect(x + 10, y + 10, 20, 40, false); // 画坦克身
+                g.fillOval(x + 10, y + 20, 20, 20); // 画出坦克盖
+                g.drawLine(x + 20, y + 30, x + 20, y); // 画出炮管
+                break;
+            case 1: // 方向向右
+                g.fill3DRect(x, y, 60, 10, false); // 画坦克左履带
+                g.fill3DRect(x, y + 30, 60, 10, false); // 画坦克右履带
+                g.fill3DRect(x + 10, y + 10, 40, 20, false); // 画坦克身
+                g.fillOval(x + 20, y + 10, 20, 20); // 画出坦克盖
+                g.drawLine(x + 30, y + 20, x + 60, y + 20); // 画出炮管
+                break;
+            case 2: // 方向向下
+                g.fill3DRect(x, y, 10, 60, false); // 画坦克左履带
+                g.fill3DRect(x + 30, y, 10, 60, false); // 画坦克右履带
+                g.fill3DRect(x + 10, y + 10, 20, 40, false); // 画坦克身
+                g.fillOval(x + 10, y + 20, 20, 20); // 画出坦克盖
+                g.drawLine(x + 20, y + 30, x + 20, y + 60); // 画出炮管
+                break;
+            case 3: // 方向向左
+                g.fill3DRect(x, y, 60, 10, false); // 画坦克左履带
+                g.fill3DRect(x, y + 30, 60, 10, false); // 画坦克右履带
+                g.fill3DRect(x + 10, y + 10, 40, 20, false); // 画坦克身
+                g.fillOval(x + 20, y + 10, 20, 20); // 画出坦克盖
+                g.drawLine(x + 30, y + 20, x, y + 20); // 画出炮管
+                break;
         }
     }
 
@@ -229,38 +229,38 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     // 判断自己的子弹是否击中坦克
     public void hitTank(Shot s, Tank tank) {
         switch (tank.getDirect()) {
-        case 0: // 这儿不写东西是因为0和2的情况是一样的
-        case 2:// 所以光写这儿的
-            if (s.x > tank.getX() && s.x < tank.getX() + 40 && s.y > tank.getY() && s.y < tank.getY() + 60) { // 你的子弹碰到了敌人坦克
-                s.isLive = false; // 你的子弹死亡
-                tank.isLive = false; // 敌人坦克死亡
-                enemyTanks.remove(tank); // 当坦克死亡后，将它从Vector集合中拿掉
+            case 0: // 这儿不写东西是因为0和2的情况是一样的
+            case 2:// 所以光写这儿的
+                if (s.x > tank.getX() && s.x < tank.getX() + 40 && s.y > tank.getY() && s.y < tank.getY() + 60) { // 你的子弹碰到了敌人坦克
+                    s.isLive = false; // 你的子弹死亡
+                    tank.isLive = false; // 敌人坦克死亡
+                    enemyTanks.remove(tank); // 当坦克死亡后，将它从Vector集合中拿掉
 
-                if (tank instanceof EnemyTank) {// 如果这个被击毁的坦克时敌方坦克的话
-                    Recorder.addAllEnemyTankNum();// 当我方击毁了敌方坦克之后，就对addEnemyTank++
+                    if (tank instanceof EnemyTank) {// 如果这个被击毁的坦克时敌方坦克的话
+                        Recorder.addAllEnemyTankNum();// 当我方击毁了敌方坦克之后，就对addEnemyTank++
+                    }
+
+                    // 创建Bomb对象，将其加入到bombs集合中
+                    Bomb bomb = new Bomb(tank.getX(), tank.getY());
+                    bombs.add(bomb);
                 }
+                break;
+            case 1:
+            case 3:
+                if (s.x > tank.getX() && s.x < tank.getX() + 60 && s.y > tank.getY() && s.y < tank.getY() + 40) { // 你的子弹碰到了敌人坦克
+                    s.isLive = false; // 你的子弹死亡
+                    tank.isLive = false; // 敌人坦克死亡
+                    enemyTanks.remove(tank); // 当坦克死亡后，将它从Vector集合中拿掉
 
-                // 创建Bomb对象，将其加入到bombs集合中
-                Bomb bomb = new Bomb(tank.getX(), tank.getY());
-                bombs.add(bomb);
-            }
-            break;
-        case 1:
-        case 3:
-            if (s.x > tank.getX() && s.x < tank.getX() + 60 && s.y > tank.getY() && s.y < tank.getY() + 40) { // 你的子弹碰到了敌人坦克
-                s.isLive = false; // 你的子弹死亡
-                tank.isLive = false; // 敌人坦克死亡
-                enemyTanks.remove(tank); // 当坦克死亡后，将它从Vector集合中拿掉
+                    if (tank instanceof EnemyTank) {// 如果这个被击毁的坦克时敌方坦克的话
+                        Recorder.addAllEnemyTankNum();// 当我方击毁了敌方坦克之后，就对addEnemyTank++
+                    }
 
-                if (tank instanceof EnemyTank) {// 如果这个被击毁的坦克时敌方坦克的话
-                    Recorder.addAllEnemyTankNum();// 当我方击毁了敌方坦克之后，就对addEnemyTank++
+                    // 创建你的Bomb对象，将其加入到bombs集合中
+                    Bomb bomb = new Bomb(tank.getX(), tank.getY());
+                    bombs.add(bomb);
                 }
-
-                // 创建你的Bomb对象，将其加入到bombs集合中
-                Bomb bomb = new Bomb(tank.getX(), tank.getY());
-                bombs.add(bomb);
-            }
-            break;
+                break;
 
         }
     }
@@ -285,7 +285,42 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            hero.setDirect(0);
+            if (hero.getY() > 0) {// 防止出界
+                hero.moveUp();
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {
+            hero.setDirect(1);
+            if (hero.getX() + 60 < 1000) {// 防止出界
+                hero.moveRight();
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
+            hero.setDirect(2);
+            if (hero.getY() + 60 < 750) {// 防止出界
+                hero.moveDown();
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_A) {
+            hero.setDirect(3);
+            if (hero.getX() > 0) {// 防止出界
+                hero.moveLeft();
+            }
+        }
 
+        if (e.getKeyCode() == KeyEvent.VK_J) { // 如果按J
+            // 如果为空（即你还没有发射子弹）
+            /*
+             * 或者（子弹这个对象还存在）（就，你消亡的只是子弹这个线程，而子弹这个对象并没有消失）
+             * （你不加这个的话，你发射一发后按J不会再发射了，即使这颗子弹进程已经由于碰到墙壁消亡了）
+             */
+            // if (hero.shot == null || !hero.shot.isLive) {//这一堆是发射一颗子弹
+            // hero.shotEnemyTank(); // 开始射击
+            // }
+            hero.shotEnemyTank();// 发射多颗子弹
+
+        }
+
+        this.repaint(); // 重绘，要不然你上面写的都没用
     }
 
     @Override
@@ -331,7 +366,42 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            hero.setDirect(0);
+            if (hero.getY() > 0) {// 防止出界
+                hero.moveUp();
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {
+            hero.setDirect(1);
+            if (hero.getX() + 60 < 1000) {// 防止出界
+                hero.moveRight();
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
+            hero.setDirect(2);
+            if (hero.getY() + 60 < 750) {// 防止出界
+                hero.moveDown();
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_A) {
+            hero.setDirect(3);
+            if (hero.getX() > 0) {// 防止出界
+                hero.moveLeft();
+            }
+        }
 
+        if (e.getKeyCode() == KeyEvent.VK_J) { // 如果按J
+            // 如果为空（即你还没有发射子弹）
+            /*
+             * 或者（子弹这个对象还存在）（就，你消亡的只是子弹这个线程，而子弹这个对象并没有消失）
+             * （你不加这个的话，你发射一发后按J不会再发射了，即使这颗子弹进程已经由于碰到墙壁消亡了）
+             */
+            // if (hero.shot == null || !hero.shot.isLive) {//这一堆是发射一颗子弹
+            // hero.shotEnemyTank(); // 开始射击
+            // }
+            hero.shotEnemyTank();// 发射多颗子弹
+
+        }
+
+        this.repaint(); // 重绘，要不然你上面写的都没用
     }
 
     @Override
