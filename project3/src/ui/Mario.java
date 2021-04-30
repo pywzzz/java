@@ -35,7 +35,12 @@ public class Mario {
         y -= (int) s; // 修改马里奥的纵坐标
         if (y >= groundY) {// 如果马里奥下落到地面的位置时
             y = groundY; // 则让马里奥停留在地面的位置
-
+            /* 下面这些是为了防止马里奥落地时候图片还是跳跃时候的图片 */
+            if (dir == App.DIR_RIGHT) {
+                img = imgR.get(0);
+            } else {
+                img = imgL.get(0);
+            }
         }
     }
 
