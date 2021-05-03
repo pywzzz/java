@@ -1,0 +1,5 @@
+tream啥的只能读取一个个字节是，它是用来读取音乐等文件的，这些文件一个一个字节读取不会有损耗的情况出现
+
+public class FileReaderzzz {
+    public static void main(String[] args) {
+        String filePath = "file/FileR
