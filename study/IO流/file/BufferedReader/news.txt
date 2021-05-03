@@ -1,0 +1,12 @@
+BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+        String line;
+
+        // 按行读取（类比之前的那个按数组读取）（这个就体现出来BufferedReader这个包装类的用途了，它为FileReader类附加上了些新功能）
+        // 这个方法读完之后，会return一个null
+        line = bufferedReader.readLine();
+        while ((line = bufferedReader.readLine()) != null) {
+            System.out.println(line);
+        }
+        
+        // 这儿关闭BufferedReader就等于关闭节点流FileReader（因为ufferedReader的源码中会关闭节点流）
+        bufferedReader.close();
