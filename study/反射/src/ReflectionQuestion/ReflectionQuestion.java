@@ -1,7 +1,8 @@
 package ReflectionQuestion;
 
 import java.io.FileInputStream;
-
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
@@ -28,5 +29,16 @@ public class ReflectionQuestion {
 
         Method method1 = cls.getMethod(methodName);// 通过cls得到你加载的类（即Cat）中的methodName对应的方法对象（在反射中，将方法也当成对象）
         method1.invoke(o);// 调用方法对象method1对应的hi这个方法
+
+        // Field对象表示某个成员变量
+        Field namField = cls.getField("age");// getField方法不能获取到私有属性
+        System.out.println(namField.get(o));
+
+        // Constructor对象表示某个构造器
+        Constructor constructor1 = cls.getConstructor(); // 若括号中没有参数，则得到默认的构造器
+        System.out.println(constructor1);
+        Constructor constructor2 = cls.getConstructor(String.class); // 括号中加参数可以获得指定的构造器
+        System.out.println(constructor2);
+
     }
 }
